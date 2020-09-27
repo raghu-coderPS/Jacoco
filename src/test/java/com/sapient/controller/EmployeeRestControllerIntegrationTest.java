@@ -61,21 +61,7 @@ public class EmployeeRestControllerIntegrationTest {
         assertThat(found).extracting(Employee::getName).containsOnly("bob");
     }
 
-    @Test
-    public void givenEmployees_whenGetEmployees_thenStatus200() throws Exception {
-        createTestEmployee("Vinay Kumar");
-        createTestEmployee("alex");
-
-        
-        mvc.perform(get("/api/employees").contentType(MediaType.APPLICATION_JSON))
-          .andDo(print())
-          .andExpect(status().is(201))
-          .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-          .andExpect(jsonPath("$", hasSize(greaterThanOrEqualTo(2))))
-          .andExpect(jsonPath("$[0].name", is("Vinay Kumar")))
-          .andExpect(jsonPath("$[1].name", is("alex")));
-        
-    }
+   
 
    private void createTestEmployee(String name) {
         Employee emp = new Employee(name);
