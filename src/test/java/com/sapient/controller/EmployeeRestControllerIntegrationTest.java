@@ -63,7 +63,7 @@ public class EmployeeRestControllerIntegrationTest {
 
     @Test
     public void givenEmployees_whenGetEmployees_thenStatus200() throws Exception {
-        createTestEmployee("bob");
+        createTestEmployee("Vinay Kumar");
         createTestEmployee("alex");
 
         
@@ -72,7 +72,7 @@ public class EmployeeRestControllerIntegrationTest {
           .andExpect(status().is(201))
           .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
           .andExpect(jsonPath("$", hasSize(greaterThanOrEqualTo(2))))
-          .andExpect(jsonPath("$[0].name", is("bob")))
+          .andExpect(jsonPath("$[0].name", is("Vinay Kumar")))
           .andExpect(jsonPath("$[1].name", is("alex")));
         
     }
