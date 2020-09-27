@@ -26,13 +26,12 @@ public class EmployeeServiceImpl implements EmployeeService{
 		try {
 			Optional<Employee> optional= repository.findById(id);
 			if(optional.isPresent()) {
-				Employee employee= optional.get();
-				return employee;
+				return optional.get();
 			}else {
 				throw new EmployeeException("Invalid Employee Id");
 			}
 		}catch(DataAccessException e) {
-			//			log.error(e.getMessage(), e);
+
 			throw new EmployeeException(e.getMessage(),e);
 		}
 	}
@@ -40,10 +39,10 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public Employee getEmployeeByName(String name) throws EmployeeException {
 		try {
-			Employee employee= repository.findByName(name);
-			return employee;
+			return repository.findByName(name);
+	
 		}catch(DataAccessException e) {
-			//log.error(e.getMessage(), e);
+			
 			throw new EmployeeException(e.getMessage(),e);
 		}
 	}
@@ -52,39 +51,35 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public List<Employee> getAllEmployees() throws EmployeeException {
 		try {
 			List<Employee> employeeList= repository.findAll();
-			if(employeeList.size()!=0) {
+			if(employeeList.isEmpty()) {
 				return employeeList;
 			}else {
 				throw new EmployeeException("No employees in the database");			
 			}
 		}catch(DataAccessException e) {
-			//			log.error(e.getMessage(), e);
 			throw new EmployeeException(e.getMessage(),e);
 		}
 	}
 
 	@Override
 	public boolean exists(String name) throws EmployeeException {
-		if(repository.findByName(name)!=null) {
-			return true;
-		}
-		return false;
+		return (repository.findByName(name)!=null)?true:false;
 	}
 
 	@Override
 	public Employee save(Employee employee) throws EmployeeException {
 		try {
-			Employee e=repository.save(employee);
-			return e;
+			return repository.save(employee);
+		
 		}catch(DataAccessException e) {
-			//			log.error(e.getMessage(), e);
+
 			throw new EmployeeException(e.getMessage(),e);
 		}
 	}
 
 	@Override
 	public List<Employee> findByName(String name) throws EmployeeException {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
@@ -92,14 +87,12 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public List<Employee> findByJobAndSalary(String job, Double salary) throws EmployeeException {
 		try {			
 			List<Employee> employeeList=repository.findByJobAndSalary(job, salary);
-			if(employeeList.size()!=0) {
+			if(employeeList.isEmpty()) {
 				return employeeList;
-			}else {
-				//				log.debug("No employees in the database with the specified conditions");				
+			}else {				
 				throw new EmployeeException("No employees in the database with the specified job and salary");
 			}
 		}catch(DataAccessException e) {
-			//			log.error(e.getMessage(), e);
 			throw new EmployeeException(e.getMessage(),e);
 		}
 	}
@@ -108,14 +101,14 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public List<Employee> findByJobAndSalaryGreaterThan(String job, Double salary) throws EmployeeException {
 		try {
 			List<Employee> employeeList=repository.findByJobAndSalaryGreaterThan(job, salary);
-			if(employeeList.size()!=0) {
+			if(employeeList.isEmpty()) {
 				return employeeList;
 			}else {
-				//				log.debug("No employees in the database with the specified conditions");				
+							
 				throw new EmployeeException("No employees in the database with the specified conditions");
 			}
 		}catch(DataAccessException e) {
-			//			log.error(e.getMessage(), e);
+		
 			throw new EmployeeException(e.getMessage(),e);
 		}
 	}
