@@ -21,9 +21,9 @@ public class SwaggerUiWebMvcConfigurer implements WebMvcConfigurer {
 
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    String baseUrl = StringUtils.trimTrailingCharacter(this.baseUrl, '/');
+    String baseUrl1 = StringUtils.trimTrailingCharacter(this.baseUrl, '/');
     registry.
-        addResourceHandler(baseUrl + "/swagger-ui/**")
+        addResourceHandler(baseUrl1 + "/swagger-ui/**")
         .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
         .resourceChain(false);
   }
@@ -35,14 +35,5 @@ public class SwaggerUiWebMvcConfigurer implements WebMvcConfigurer {
         .setViewName("forward:" + baseUrl + "/swagger-ui/index.html");
   }
 
-//  @Override
-//  public void addCorsMappings(CorsRegistry registry) {
-//    registry
-//        .addMapping("/api/emp")
-//        .allowedOrigins("http://editor.swagger.io");
-//    registry
-//        .addMapping("/v2/api-docs.*")
-//        .allowedOrigins("http://editor.swagger.io");
-//   
-//  }
+
 }
