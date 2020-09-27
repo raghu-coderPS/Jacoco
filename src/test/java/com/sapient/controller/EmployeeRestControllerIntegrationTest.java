@@ -39,7 +39,7 @@ import com.sapient.training.entity.Employee;
 @AutoConfigureMockMvc 
 //@TestPropertySource(locations = "classpath:application-integrationtest.properties")
 @AutoConfigureTestDatabase(replace=Replace.NONE)
-public class EmployeeRestControllerIntegrationTest {
+class EmployeeRestControllerIntegrationTest {
 
     @Autowired
     private MockMvc mvc;
@@ -62,7 +62,7 @@ public class EmployeeRestControllerIntegrationTest {
     }
 
     @Test
-    public void givenEmployees_whenGetEmployees_thenStatus200() throws Exception {
+    void givenEmployees_whenGetEmployees_thenStatus200() throws Exception {
         createTestEmployee("Vinay Kumar");
         createTestEmployee("alex");
 
@@ -77,7 +77,7 @@ public class EmployeeRestControllerIntegrationTest {
         
     }
 
-   private void createTestEmployee(String name) {
+    void createTestEmployee(String name) {
         Employee emp = new Employee(name);
         repository.saveAndFlush(emp);
     }    
