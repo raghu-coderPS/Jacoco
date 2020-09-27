@@ -39,7 +39,7 @@ import com.sapient.training.entity.Employee;
 @AutoConfigureMockMvc 
 //@TestPropertySource(locations = "classpath:application-integrationtest.properties")
 @AutoConfigureTestDatabase(replace=Replace.NONE)
-class EmployeeRestControllerIntegrationTest {
+public class EmployeeRestControllerIntegrationTest {
 
     @Autowired
     private MockMvc mvc;
@@ -62,8 +62,8 @@ class EmployeeRestControllerIntegrationTest {
     }
 
     @Test
-    void givenEmployees_whenGetEmployees_thenStatus200() throws Exception {
-        createTestEmployee("Vinay Kumar");
+    public void givenEmployees_whenGetEmployees_thenStatus200() throws Exception {
+        createTestEmployee("bob");
         createTestEmployee("alex");
 
         
@@ -72,12 +72,12 @@ class EmployeeRestControllerIntegrationTest {
           .andExpect(status().is(201))
           .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
           .andExpect(jsonPath("$", hasSize(greaterThanOrEqualTo(2))))
-          .andExpect(jsonPath("$[0].name", is("Vinay Kumar")))
+          .andExpect(jsonPath("$[0].name", is("bob")))
           .andExpect(jsonPath("$[1].name", is("alex")));
         
     }
 
-    void createTestEmployee(String name) {
+   private void createTestEmployee(String name) {
         Employee emp = new Employee(name);
         repository.saveAndFlush(emp);
     }    
