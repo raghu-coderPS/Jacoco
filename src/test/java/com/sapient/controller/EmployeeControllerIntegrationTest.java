@@ -38,7 +38,7 @@ import com.sapient.training.service.EmployeeService;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = SpringDataJpaAppApplication.class)
 @AutoConfigureMockMvc 
-public class EmployeeControllerIntegrationTest {
+class EmployeeControllerIntegrationTest {
 
     @Autowired
     private MockMvc mvc;
@@ -51,7 +51,7 @@ public class EmployeeControllerIntegrationTest {
     }
 
     @Test
-    public void whenPostEmployee_thenCreateEmployee() throws Exception {
+    void whenPostEmployee_thenCreateEmployee() throws Exception {
         Employee alex = new Employee("alex");
         given(service.save(Mockito.any())).willReturn(alex);
 
@@ -61,7 +61,7 @@ public class EmployeeControllerIntegrationTest {
     }
 
     @Test
-    public void givenEmployees_whenGetEmployees_thenReturnJsonArray() throws Exception {
+    void givenEmployees_whenGetEmployees_thenReturnJsonArray() throws Exception {
         Employee alex = new Employee("alex");
         Employee john = new Employee("john");
         Employee bob = new Employee("bob");
