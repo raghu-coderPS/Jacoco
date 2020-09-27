@@ -32,17 +32,7 @@ public class EmployeeRestController {
 	@Autowired
 	private EmployeeService employeeService;
 
-	//http://localhost:8081/api/employees
-	/*
-	 * post json object from postman
-	 * ex.
-	 * {
-    	"name": "Rohit Sharma",
-    	"job": "Manager",
-    	"hiredate": "2010-10-15",    	
-    	"salary": 1350000.0
-		}
-	 */
+	
 	@ApiOperation(value = "Create employee",
 			response = Employee.class,
 			tags = "create-emp")
