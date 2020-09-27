@@ -37,7 +37,7 @@ import com.sapient.training.entity.Employee;
  * As shown below, a manual flush is indeed required:
  */
 @DataJpaTest
-public class EmployeeRepositoryIntegrationTest {
+class EmployeeRepositoryIntegrationTest {
 
     @Autowired
     private TestEntityManager entityManager;
@@ -46,7 +46,7 @@ public class EmployeeRepositoryIntegrationTest {
     private EmployeeRepository employeeRepository;
 
     @Test
-    public void whenFindByName_thenReturnEmployee() {
+    void whenFindByName_thenReturnEmployee() {
         Employee alex = new Employee("alex");
         entityManager.persistAndFlush(alex);
 
@@ -55,13 +55,13 @@ public class EmployeeRepositoryIntegrationTest {
     }
 
     @Test
-    public void whenInvalidName_thenReturnNull() {
+    void whenInvalidName_thenReturnNull() {
         Employee fromDb = employeeRepository.findByName("doesNotExist");
         assertThat(fromDb).isNull();
     }
 
     @Test
-    public void whenFindById_thenReturnEmployee() {
+    void whenFindById_thenReturnEmployee() {
         Employee emp = new Employee("test");
         entityManager.persistAndFlush(emp);
 
@@ -72,14 +72,14 @@ public class EmployeeRepositoryIntegrationTest {
     }
 
     @Test
-    public void whenInvalidId_thenReturnNull() {
+    void whenInvalidId_thenReturnNull() {
         Employee fromDb = employeeRepository
         		.findById(-11l).orElse(null);
         assertThat(fromDb).isNull();
     }
 
     @Test
-    public void givenSetOfEmployees_whenFindAll_thenReturnAllEmployees() {
+    void givenSetOfEmployees_whenFindAll_thenReturnAllEmployees() {
         Employee alex = new Employee("alex");
         Employee ron = new Employee("ron");
         Employee bob = new Employee("bob");
