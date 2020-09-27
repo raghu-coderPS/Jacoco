@@ -27,7 +27,7 @@ import com.sapient.training.service.EmployeeServiceImpl;
 //@RunWith(SpringRunner.class)  : JUnit 4
 //Junit 5 replacement
 @ExtendWith(SpringExtension.class)
-public class EmployeeServiceImplIntegrationTest {
+class EmployeeServiceImplIntegrationTest {
 
     @TestConfiguration
     static class EmployeeServiceImplTestContextConfiguration {
@@ -44,7 +44,7 @@ public class EmployeeServiceImplIntegrationTest {
     private EmployeeRepository employeeRepository;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         Employee john = new Employee("john");
         john.setId(11L);
 
@@ -62,7 +62,7 @@ public class EmployeeServiceImplIntegrationTest {
     }
 
     @Test
-    public void whenValidName_thenEmployeeShouldBeFound() {
+    void whenValidName_thenEmployeeShouldBeFound() {
         String name = "alex";
         Employee found;
 		try {
@@ -77,7 +77,7 @@ public class EmployeeServiceImplIntegrationTest {
     }
 
     @Test
-    public void whenInValidName_thenEmployeeShouldNotBeFound() {
+    void whenInValidName_thenEmployeeShouldNotBeFound() {
         Employee fromDb;
 		try {
 			fromDb = employeeService.getEmployeeByName("wrong_name");
@@ -92,7 +92,7 @@ public class EmployeeServiceImplIntegrationTest {
     }
 
     @Test
-    public void whenValidName_thenEmployeeShouldExist() {
+    void whenValidName_thenEmployeeShouldExist() {
         boolean doesEmployeeExist;
 		try {
 			doesEmployeeExist = employeeService.exists("john");
@@ -107,7 +107,7 @@ public class EmployeeServiceImplIntegrationTest {
     }
 
     @Test
-    public void whenNonExistingName_thenEmployeeShouldNotExist() {
+    void whenNonExistingName_thenEmployeeShouldNotExist() {
         boolean doesEmployeeExist;
 		try {
 			doesEmployeeExist = employeeService.exists("some_name");
@@ -122,7 +122,7 @@ public class EmployeeServiceImplIntegrationTest {
     }
 
     @Test
-    public void whenValidId_thenEmployeeShouldBeFound() {
+    void whenValidId_thenEmployeeShouldBeFound() {
         Employee fromDb;
 		try {
 			fromDb = employeeService.getEmployeeById(11L);
@@ -151,7 +151,7 @@ public class EmployeeServiceImplIntegrationTest {
     }
 
     @Test
-    public void given3Employees_whengetAll_thenReturn3Records() {
+    void given3Employees_whengetAll_thenReturn3Records() {
         Employee alex = new Employee("alex");
         Employee john = new Employee("john");
         Employee bob = new Employee("bob");
