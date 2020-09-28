@@ -63,6 +63,11 @@ pipeline {
           }
 
 	}
+	  stage('Jmeter'){
+steps{
+bat label: 'jmeter', script: 'jmeter.bat -Jjmeter.save.saveservice.output_format=xml -n -t C:\Users\kanram\Desktop\POD2\employee-demo.jmx -l C:\Users\kanram\Desktop\POD2\results\Test.jtl'
+}
+}
 
 	
 
