@@ -24,7 +24,7 @@ import com.sapient.training.service.EmployeeService;
 import com.sapient.training.service.EmployeeServiceImpl;
 
 
-//@RunWith(SpringRunner.class)  : JUnit 4
+//@RunWith(SpringRunner.class)  : JUnit4
 //Junit 5 replacement
 @ExtendWith(SpringExtension.class)
 class EmployeeServiceImplIntegrationTest {
