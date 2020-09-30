@@ -65,6 +65,14 @@ pipeline {
           }
 
 	}
+	  stage("Quality Gate") {
+            steps {
+              timeout(time: 1, unit: 'HOURS') {
+                waitForQualityGate abortPipeline: true
+              }
+            }
+          }
+        }
 	   stage('Jmeter'){
          steps{
 	    // cd 	 C:\Program Files\apache-jmeter-5.3\bin
