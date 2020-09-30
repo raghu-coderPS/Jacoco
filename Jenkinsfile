@@ -27,6 +27,7 @@ pipeline {
 			bat label: 'Test running', script: '''mvn test'''
 
 	       
+		   
 
        }
 
