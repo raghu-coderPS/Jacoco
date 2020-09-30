@@ -58,7 +58,7 @@ class EmployeeServiceImplIntegrationTest {
         Mockito.when(employeeRepository.findByName("wrong_name")).thenReturn(null);
         Mockito.when(employeeRepository.findById(john.getId())).thenReturn(Optional.of(john));
         Mockito.when(employeeRepository.findAll()).thenReturn(allEmployees);
-        Mockito.when(employeeRepository.findById(-99L)).thenReturn(Optional.of(raghu));
+        Mockito.when(employeeRepository.findById(-99L)).thenReturn(Optional.empty());
     }
 
     @Test
