@@ -83,10 +83,7 @@ pipeline {
 		}
 
 	} 	
-	 
-     
-    stages {
-        stage('Ok') {
+	  stage('Ok') {
             steps {
                 echo "Ok"
             }
@@ -97,9 +94,9 @@ pipeline {
             emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
         }
     }
-
-
-  } 
+	 
+     
+   
 
   
 
