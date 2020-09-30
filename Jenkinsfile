@@ -72,7 +72,7 @@ pipeline {
               }
             }
           }
-        }
+        
 	   stage('Jmeter'){
          steps{
 	    // cd 	 C:\Program Files\apache-jmeter-5.3\bin
@@ -113,7 +113,7 @@ pipeline {
 	 
      
    
-}
+
   
 
 }
