@@ -57,21 +57,12 @@ pipeline {
             }
           }
          stage("Quality Gate") {
-		 steps{
-            waitForQualityGate {
-    pass {
-        echo 'This will run only if QG ok'
-    }
-    fail {
-        echo 'This will run only if QG failed'
-    }
-    error {
-        echo 'This will run only if task errored'
-    }
-}
-		 }
-          }
-  
+            steps {
+                timeout(time: 1, unit: 'HOURS') {
+                    waitForQualityGate abortPipeline: false
+                }
+            }
+        }
       
 	  
         
