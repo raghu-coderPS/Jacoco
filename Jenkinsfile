@@ -46,8 +46,7 @@ pipeline {
 
         
 
-          stage("build & SonarQube analysis") {
-            agent any
+          stage("build & SonarQube analysis") 
             steps {
               withSonarQubeEnv('SonarQube') {
                 bat label: '', script: '''mvn sonar:sonar \
@@ -59,7 +58,7 @@ pipeline {
          stage("Quality Gate") {
             steps {
                 timeout(time: 1, unit: 'HOURS') {
-                    waitForQualityGate abortPipeline: false
+                    waitForQualityGate true
                 }
             }
         }
