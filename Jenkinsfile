@@ -57,6 +57,7 @@ pipeline {
             }
           }
          stage("Quality Gate") {
+		 steps{
             waitForQualityGate {
     pass {
         echo 'This will run only if QG ok'
@@ -68,6 +69,7 @@ pipeline {
         echo 'This will run only if task errored'
     }
 }
+		 }
           }
   
       
