@@ -47,6 +47,8 @@ pipeline {
         
 
           stage("build & SonarQube analysis") 
+	  {
+	  agent any
             steps {
               withSonarQubeEnv('SonarQube') {
                 bat label: '', script: '''mvn sonar:sonar \
@@ -55,11 +57,13 @@ pipeline {
               
             }
           }
+	  }
          stage("Quality Gate") {
             steps {
-                timeout(time: 1, unit: 'HOURS') {
-                    waitForQualityGate true
-                }
+                def qg = waitForQualityGate()
+                        if (qg.status != 'OK') {
+                            error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                        }
             }
         }
       
