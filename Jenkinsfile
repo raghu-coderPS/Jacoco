@@ -50,7 +50,9 @@ pipeline {
             agent any
             steps {
               withSonarQubeEnv('SonarQube') {
-                sh 'mvn clean package sonar:sonar'
+                bat label: '', script: '''mvn sonar:sonar \
+		 -Dsonar.host.url=http://localhost:9000 \
+ 		-Dsonar.login=a05a193de838bc0d4b86d07800da08f5e2053343'''
               }
             }
           }
