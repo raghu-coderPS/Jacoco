@@ -46,19 +46,23 @@ pipeline {
 
         
 
-	stage('SonarQube'){
-
-         steps{
-
-            bat label: '', script: '''mvn sonar:sonar \
-
-		 -Dsonar.host.url=http://localhost:9000 \
-
- 		-Dsonar.login=a05a193de838bc0d4b86d07800da08f5e2053343'''
-
+          stage("build & SonarQube analysis") {
+            agent any
+            steps {
+              withSonarQubeEnv('SonarQube') {
+                sh 'mvn clean package sonar:sonar'
+              }
+            }
           }
-
-	}
+          stage("Quality Gate") {
+            steps {
+              timeout(time: 1, unit: 'HOURS') {
+                waitForQualityGate abortPipeline: true
+              }
+            }
+          }
+  
+      
 	  
         
 	   stage('Jmeter'){
