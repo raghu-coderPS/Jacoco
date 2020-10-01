@@ -32,13 +32,7 @@ pipeline {
 
        }
 
-   	}
-
-	
-
-	
-
-        
+   	}   
 
     stage('Jacoco Coverage Report') {
 
