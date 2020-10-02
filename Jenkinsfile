@@ -2,45 +2,22 @@ node {
 
  	
 	  
-
-	stage('Maven Compile'){
-
-		steps{
-
-			echo 'Project compile stage'
-
-			bat label: 'Compilation running', script: '''mvn compile'''
-
-	       	}
-
-	}
-
-	
-
-	stage('Unit Test') {
-
-	   steps {
-
-			echo 'Project Testing stage'
-
-			bat label: 'Test running', script: '''mvn test'''
-
-	       
-		   
-
-       }
-
-   	}   
-
-    stage('Jacoco Coverage Report') {
-
-        steps{
-
-            jacoco()
-
-		}
-
-	}
+stage('SCM Checkout'){
+     git 'https://github.com/raghu-coderPS/Jacoco.git'
+   }
+   stage('Compile-Package'){
+      // Get maven home path
+      def mvnHome =  tool name: 'maven-3', type: 'maven'   
+      bat "${MAVEN_HOME}/bin/mvn package"
+   }
+   
+   stage('SonarQube Analysis') {
+        def mvnHome =  tool name: 'maven-3', type: 'maven'
+        withSonarQubeEnv('SonarQube') { 
+          bat "${MAVEN_HOME}/bin/mvn sonar:sonar"
+        }
+    }
+    
 
         
 
