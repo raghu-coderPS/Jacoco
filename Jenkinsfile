@@ -8,13 +8,13 @@ stage('SCM Checkout'){
    stage('Compile-Package'){
       // Get maven home path
       def mvnHome =  tool name: 'maven-3', type: 'maven'   
-      bat "${MAVEN_HOME}/bin/mvn package"
+      bat "${mvnHome}/bin/mvn package"
    }
    
    stage('SonarQube Analysis') {
         def mvnHome =  tool name: 'maven-3', type: 'maven'
         withSonarQubeEnv('SonarQube') { 
-          bat "${MAVEN_HOME}/bin/mvn sonar:sonar"
+          bat "${mvnHome}/bin/mvn sonar:sonar"
         }
     }
     
