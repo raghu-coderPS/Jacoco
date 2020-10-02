@@ -1,8 +1,6 @@
-pipeline {
+node {
 
-  agent any
-
-  stages {	
+ 	
 	  
 
 	stage('Maven Compile'){
@@ -58,42 +56,19 @@ pipeline {
             }
           }
 	  }
-         stage("Quality Gate") {
-            steps {
-		    timeout(time: 1, unit: 'HOURS'){
-                    waitForQualityGate abortPipeline: true
-		    }
-            }
-        }
+         stage("Quality Gate Statuc Check"){
+          timeout(time: 1, unit: 'HOURS') {
+              def qg = waitForQualityGate()
+		  if (qg.status != 'OK') {
+                  error "Pipeline aborted due to quality gate failure: ${qg.status}"
+              }
+          }
+      }    
       
 	  
         
-	  
-	
 
-	stage('Maven Package'){
-
-		steps{
-
-			echo 'Project packaging stage'
-
-			bat label: 'Project packaging', script: '''mvn package'''
-
-		}
-
-	} 
-  }
-	  
-    post {
-        success {
-            emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
-        }
-	     failure {
-        mail to: 'mithunputhusseri@gmail.com',
-             subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-             body: "Something is wrong with ${env.BUILD_URL}"
-    }
-    }
+    
 	 
      
    
