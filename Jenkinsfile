@@ -81,7 +81,8 @@ pipeline {
 
 		}
 
-	} 	
+	} 
+  }
 	  
     post {
         success {
