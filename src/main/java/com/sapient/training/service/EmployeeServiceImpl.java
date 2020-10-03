@@ -12,8 +12,6 @@ import com.sapient.training.data.EmployeeRepository;
 import com.sapient.training.entity.Employee;
 import com.sapient.training.exception.EmployeeException;
 
-import lombok.extern.slf4j.Slf4j;
-
 //@Slf4j  Applying Spring AOP for logging
 @Service
 @Transactional
@@ -26,12 +24,13 @@ public class EmployeeServiceImpl implements EmployeeService{
 		try {
 			Optional<Employee> optional= repository.findById(id);
 			if(optional.isPresent()) {
-				return optional.get();
+				Employee employee= optional.get();
+				return employee;
 			}else {
 				throw new EmployeeException("Invalid Employee Id");
 			}
 		}catch(DataAccessException e) {
-
+			//			log.error(e.getMessage(), e);
 			throw new EmployeeException(e.getMessage(),e);
 		}
 	}
@@ -39,10 +38,10 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public Employee getEmployeeByName(String name) throws EmployeeException {
 		try {
-			return repository.findByName(name);
-	
+			Employee employee= repository.findByName(name);
+			return employee;
 		}catch(DataAccessException e) {
-			
+			//log.error(e.getMessage(), e);
 			throw new EmployeeException(e.getMessage(),e);
 		}
 	}
@@ -51,35 +50,39 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public List<Employee> getAllEmployees() throws EmployeeException {
 		try {
 			List<Employee> employeeList= repository.findAll();
-			if(employeeList.isEmpty()) {
+			if(employeeList.size()!=0) {
 				return employeeList;
 			}else {
 				throw new EmployeeException("No employees in the database");			
 			}
 		}catch(DataAccessException e) {
+			//			log.error(e.getMessage(), e);
 			throw new EmployeeException(e.getMessage(),e);
 		}
 	}
 
 	@Override
 	public boolean exists(String name) throws EmployeeException {
-		return (repository.findByName(name)!=null)?true:false;
+		if(repository.findByName(name)!=null) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override
 	public Employee save(Employee employee) throws EmployeeException {
 		try {
-			return repository.save(employee);
-		
+			Employee e=repository.save(employee);
+			return e;
 		}catch(DataAccessException e) {
-
+			//			log.error(e.getMessage(), e);
 			throw new EmployeeException(e.getMessage(),e);
 		}
 	}
 
 	@Override
 	public List<Employee> findByName(String name) throws EmployeeException {
-		
+		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -87,12 +90,14 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public List<Employee> findByJobAndSalary(String job, Double salary) throws EmployeeException {
 		try {			
 			List<Employee> employeeList=repository.findByJobAndSalary(job, salary);
-			if(employeeList.isEmpty()) {
+			if(employeeList.size()!=0) {
 				return employeeList;
-			}else {				
+			}else {
+				//				log.debug("No employees in the database with the specified conditions");				
 				throw new EmployeeException("No employees in the database with the specified job and salary");
 			}
 		}catch(DataAccessException e) {
+			//			log.error(e.getMessage(), e);
 			throw new EmployeeException(e.getMessage(),e);
 		}
 	}
@@ -101,14 +106,14 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public List<Employee> findByJobAndSalaryGreaterThan(String job, Double salary) throws EmployeeException {
 		try {
 			List<Employee> employeeList=repository.findByJobAndSalaryGreaterThan(job, salary);
-			if(employeeList.isEmpty()) {
+			if(employeeList.size()!=0) {
 				return employeeList;
 			}else {
-							
+				//				log.debug("No employees in the database with the specified conditions");				
 				throw new EmployeeException("No employees in the database with the specified conditions");
 			}
 		}catch(DataAccessException e) {
-		
+			//			log.error(e.getMessage(), e);
 			throw new EmployeeException(e.getMessage(),e);
 		}
 	}
