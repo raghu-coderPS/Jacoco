@@ -18,7 +18,8 @@ pipeline {
 	}
 
 	
-stage('Unit Test') {
+
+	stage('Unit Test') {
 
 	   steps {
 
@@ -56,16 +57,21 @@ stage('Unit Test') {
          steps{
 		 withSonarQubeEnv('SonarQube') {
 
-            bat label: '', script: '''mvn sonar:sonar\
-  -Dsonar.projectKey=com.sapient:spring-data-jpa-app \
-  -Dsonar.host.url=http://3.238.72.11:9000 \
-  -Dsonar.login=afef250893ecacecb9b07ba6a839698e8ff34871'''
+            bat label: '', script: '''mvn sonar:sonar'''
 
           }
 	 }
 
 	}
-	   
+	   stage("Quality Gate") {
+            steps {
+                timeout(time: 1, unit: 'HOURS') {
+                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
+                    // true = set pipeline to UNSTABLE, false = don't
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
 	   stage('Jmeter'){
          steps{
 	    // cd 	 C:\Program Files\apache-jmeter-5.3\bin
@@ -87,35 +93,22 @@ stage('Unit Test') {
 		}
 
 	} 	
-	 
-    
-   
-  }
-	environment {
-        EMAIL_TO = 'raghuramkanagarla123@gmail.com'
-    }
-post {
-        failure {
-		emailext body: 'Failed Stage name:$FAILED_STAGE', 
-                    to: "${EMAIL_TO}", 
-                    subject: 'Build failed in Jenkins: $PROJECT_NAME - #$BUILD_NUMBER'
-        }
-        unstable {
-            emailext body: 'Check console output at $BUILD_URL to view the results. \n\n ${CHANGES} \n\n -------------------------------------------------- \n${BUILD_LOG, maxLines=100, escapeHtml=false}', 
-                    to: "${EMAIL_TO}", 
-                    subject: 'Unstable build in Jenkins: $PROJECT_NAME - #$BUILD_NUMBER'
-        }
-        changed {
-            emailext body: 'Check console output at $BUILD_URL to view the results.', 
-                    to: "${EMAIL_TO}", 
-                    subject: 'Jenkins build is back to normal: $PROJECT_NAME - #$BUILD_NUMBER'
+	  stage('Ok') {
+            steps {
+                echo "Ok"
+            }
         }
     }
-
+    post {
+        success {
+            emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
+        }
+	     failure {
+        mail to: 'mithunputhusseri@gmail.com',
+             subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+             body: "Something is wrong with ${env.BUILD_URL}"
+    }
+    }
 	 
      
    
-
-  
-
-}
