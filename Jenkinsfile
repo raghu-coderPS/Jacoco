@@ -93,15 +93,12 @@ pipeline {
 		}
 
 	} 	
-	  stage('Ok') {
-            steps {
-                echo "Ok"
-            }
-        }
-    }
+	 
+    
    environment {
         EMAIL_TO = 'raghuramkanagarla123@gmail.com'
     }
+  }
 post {
         failure {
             emailext body: 'Check console output at $BUILD_URL to view the results. \n\n ${CHANGES} \n\n -------------------------------------------------- \n${BUILD_LOG, maxLines=100, escapeHtml=false}', 
