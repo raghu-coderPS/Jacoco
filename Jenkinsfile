@@ -55,7 +55,7 @@ pipeline {
 	stage('SonarQube'){
 
          steps{
-		 withSonarQubeEnv('SonarQube') {
+		 withSonarQubeEnv('SonarQube2') {
 
             bat label: '', script: '''mvn sonar:sonar'''
 
