@@ -6,15 +6,10 @@ pipeline {
 	  
 
 	stage('Maven Compile'){
-
 		steps{
-
 			echo 'Project compile stage'
-
 			bat label: 'Compilation running', script: '''mvn compile'''
-
 	       	}
-
 	}
 
 	
@@ -57,7 +52,9 @@ pipeline {
          steps{
 		 withSonarQubeEnv('SonarQube2') {
 
-            bat label: '', script: '''mvn sonar:sonar'''
+           bat label: '', script: '''mvn sonar:sonar \
+		 -Dsonar.host.url=http://35.175.103.228:9000 \
+ 		-Dsonar.login=5623afa01d36ee21531aade59a92bcf60e4c212d'''
 
           }
 	 }
@@ -65,7 +62,7 @@ pipeline {
 	}
 	  stage("Quality Gate") {
             steps {
-                timeout(time: 2, unit: 'MINUTES') {
+                timeout(time: 5, unit: 'MINUTES') {
                     // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
                     // true = set pipeline to UNSTABLE, false = don't
                     waitForQualityGate abortPipeline: true
