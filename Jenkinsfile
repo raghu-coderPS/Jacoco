@@ -104,7 +104,7 @@ stage('Unit Test') {
     }
 post {
         failure {
-		emailext body: 'Failed Stage name:${FAILED_STAGE}', 
+		emailext body: 'Failed Stage name:$FAILED_STAGE', 
                     to: "${EMAIL_TO}", 
                     subject: 'Build failed in Jenkins: $PROJECT_NAME - #$BUILD_NUMBER'
         }
