@@ -56,24 +56,15 @@ stage('Unit Test') {
          steps{
 		 withSonarQubeEnv('SonarQube') {
 
-            bat label: '', script: '''mvn sonar:sonar'''
+            bat label: '', script: '''mvn sonar:sonar\
+	     -Dsonar.host.url=http://3.238.72.11:9000 \
+	    -Dsonar.login=cdfee438103a46648e147d285ab7d182'''
 
           }
 	 }
 
 	}
-	   stage("Quality Gate") {
-            steps {
-		    script{
-		    FAILED_STAGE=env.STAGE_NAME
-                timeout(time: 1, unit: 'HOURS') {
-                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
-                    // true = set pipeline to UNSTABLE, false = don't
-                    waitForQualityGate abortPipeline: true
-                }
-		    }
-            }
-        }
+	   
 	   stage('Jmeter'){
          steps{
 	    // cd 	 C:\Program Files\apache-jmeter-5.3\bin
