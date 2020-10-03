@@ -59,7 +59,7 @@ stage('Unit Test') {
             bat label: '', script: '''mvn sonar:sonar\
   -Dsonar.projectKey=com.sapient:spring-data-jpa-app \
   -Dsonar.host.url=http://3.238.72.11:9000 \
-  -Dsonar.login=afef250893ecacecb9b07ba6a839698e8ff34871
+  -Dsonar.login=afef250893ecacecb9b07ba6a839698e8ff34871'''
 
           }
 	 }
