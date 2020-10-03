@@ -57,8 +57,9 @@ stage('Unit Test') {
 		 withSonarQubeEnv('SonarQube') {
 
             bat label: '', script: '''mvn sonar:sonar\
-	     -Dsonar.host.url=http://3.238.72.11:9000 \
-	    -Dsonar.login=9b8cfde0db04c64df2a7fe5b049a5aee685a9fa5'''
+  -Dsonar.projectKey=com.sapient:spring-data-jpa-app \
+  -Dsonar.host.url=http://3.238.72.11:9000 \
+  -Dsonar.login=afef250893ecacecb9b07ba6a839698e8ff34871
 
           }
 	 }
