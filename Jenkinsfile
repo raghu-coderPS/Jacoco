@@ -10,7 +10,7 @@ pipeline {
 
 		steps{
 			script{
-			 myVariable = "foo"
+			 myVariable = "Maven Compile"
 
 			echo 'Project compile stage'
 
@@ -27,7 +27,7 @@ pipeline {
 
 	   steps {
 		   script{
-		     myVariable = "foo"
+		     myVariable = "Unit Test"
 
 			echo 'Project Testing stage'
 
@@ -62,7 +62,7 @@ pipeline {
 
          steps{
 		 script{
-		 myVariable = "foo"
+		 myVariable = "Sonar"
 		 withSonarQubeEnv('SonarQube') {
 
             bat label: '', script: '''mvn sonar:sonar'''
@@ -75,7 +75,7 @@ pipeline {
 	   stage("Quality Gate") {
             steps {
 		    script{
-		    myVariable = "foo"
+		    myVariable = "Sonar Quality gate"
                 timeout(time: 1, unit: 'HOURS') {
                     // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
                     // true = set pipeline to UNSTABLE, false = don't
@@ -87,7 +87,7 @@ pipeline {
 	   stage('Jmeter'){
          steps{
 		 script{
-		 myVariable = "foo"
+		 myVariable = "Jmater"
 	    // cd 	 C:\Program Files\apache-jmeter-5.3\bin
             bat label: 'jmeter',script:'C:\\apache-jmeter-5.3\\bin\\jmeter -n -Jjmeter.save.saveservice.output_format=xml -t C:\\Users\\kanram\\Desktop\\POD2\\employee-report.jmx -l C:\\Users\\kanram\\Desktop\\POD2\\results\\Test-emp.jtl'
           perfReport filterRegex: '', sourceDataFiles: 'C:\\Users\\kanram\\Desktop\\POD2\\results\\Test.jtl'
@@ -101,7 +101,7 @@ pipeline {
 
 		steps{
 			script{
-		   myVariable = "foo"
+		   myVariable = "Maven Package"
 
 			echo 'Project packaging stage'
 
