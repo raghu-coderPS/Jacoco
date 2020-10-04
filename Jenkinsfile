@@ -9,6 +9,7 @@ pipeline {
 	stage('Maven Compile'){
 
 		steps{
+			script{
 			 myVariable = "foo"
 
 			echo 'Project compile stage'
@@ -16,6 +17,7 @@ pipeline {
 			bat label: 'Compilation running', script: '''mvn compile'''
 
 	       	}
+		}
 
 	}
 
@@ -24,13 +26,14 @@ pipeline {
 	stage('Unit Test') {
 
 	   steps {
+		   script{
 		     myVariable = "foo"
 
 			echo 'Project Testing stage'
 
 			bat label: 'Test running', script: '''mvn test'''
 
-	       
+		   }
 		   
 
        }
@@ -58,17 +61,20 @@ pipeline {
 	stage('SonarQube'){
 
          steps{
+		 script{
 		 myVariable = "foo"
 		 withSonarQubeEnv('SonarQube') {
 
             bat label: '', script: '''mvn sonar:sonar'''
 
           }
+		 }
 	 }
 
 	}
 	   stage("Quality Gate") {
             steps {
+		    script{
 		    myVariable = "foo"
                 timeout(time: 1, unit: 'HOURS') {
                     // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
@@ -76,21 +82,25 @@ pipeline {
                     waitForQualityGate abortPipeline: true
                 }
             }
+	    }
         }
 	   stage('Jmeter'){
          steps{
+		 script{
 		 myVariable = "foo"
 	    // cd 	 C:\Program Files\apache-jmeter-5.3\bin
             bat label: 'jmeter',script:'C:\\apache-jmeter-5.3\\bin\\jmeter -n -Jjmeter.save.saveservice.output_format=xml -t C:\\Users\\kanram\\Desktop\\POD2\\employee-report.jmx -l C:\\Users\\kanram\\Desktop\\POD2\\results\\Test-emp.jtl'
           perfReport filterRegex: '', sourceDataFiles: 'C:\\Users\\kanram\\Desktop\\POD2\\results\\Test.jtl'
 	 }
 	}
+	   }
 
 	
 
 	stage('Maven Package'){
 
 		steps{
+			script{
 		   myVariable = "foo"
 
 			echo 'Project packaging stage'
@@ -98,13 +108,16 @@ pipeline {
 			bat label: 'Project packaging', script: '''mvn package'''
 
 		}
+		}
 
 	} 	
 	  stage('Ok') {
             steps {
+		    script{
 		    myVariable = "ok"
                 echo "Ok"
             }
+	    }
         }
     }
     post {
