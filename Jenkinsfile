@@ -50,7 +50,7 @@ pipeline {
 	stage('SonarQube'){
 
          steps{
-		 withSonarQubeEnv('SonarQube2') {
+		 withSonarQubeEnv('SonarQube') {
 
            bat label: '', script: '''mvn sonar:sonar \
 		 -Dsonar.host.url=http://35.175.103.228:9000 \
